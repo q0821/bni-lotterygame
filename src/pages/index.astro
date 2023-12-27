@@ -22,17 +22,24 @@ import Layout from '../layouts/Layout.astro';
 	let drawBtn = document.querySelector('.draw');
 
 	drawBtn?.addEventListener('click', () => {
-		let names: string[] = nameSouce.value.split('\n');
+		let nameSouce = document.querySelector('textarea[name="name"]') as HTMLTextAreaElement;
+		let names: string[] = nameSouce?.value.split('\n') || [];
 		let random = Math.floor(Math.random() * names.length);
 		let count=1;
 		names.forEach(name => {
 			count++;
 			setTimeout(() => {
-				document.querySelector('.result').innerHTML = `${name}`;
+				const resultElement = document.querySelector('.result');
+				if (resultElement) {
+					resultElement.innerHTML = `${name}`;
+				}
 			}, 100*count);
 		});
 		setTimeout(() => {
-			document.querySelector('.result').innerHTML = `得獎的是：${names[random]}`;
+			const resultElement = document.querySelector('.result');
+			if (resultElement) {
+				resultElement.innerHTML = `得獎的是：${names[random]}`;
+			}
 		},100*names.length+100);
 	});
 </script>
